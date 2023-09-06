@@ -1,0 +1,22 @@
+id: BDU-2023-05144
+info:
+  name: BDU:2023-05144 - Open redirect
+  author: mrd0x1
+  severity: medium
+  description: BDU:2023-05144 | CWE-601 | Open Redirect
+  reference:
+    - https://
+  tags: tags
+requests:
+  - raw:
+      - |+
+        GET /netcat/modules/auth/?logoff=1&REQUESTED_FROM=.nuclei-scaner.check&REQUESTED_BY=GET HTTP/1.1
+        Host: {{Hostname}}
+        User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.5845.97 Safari/537.36
+        Connection: close
+
+    matchers:
+      - type: word
+        part: header
+        words:
+          - .nuclei-scaner.check
